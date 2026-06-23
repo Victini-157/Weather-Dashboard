@@ -4,6 +4,9 @@
  */
 package Models;
 
+import java.util.ArrayList;
+import org.json.JSONArray;
+
 /**
  *
  * @author Markus
@@ -13,8 +16,9 @@ public class JsonHandler {
     private double latitude, longtitude, generationtime_ms, utc_offset_seconds,
             elevation, temperature_2m_max, temperature_2m_min;
     private String timezone, timezone_abbreviation, time_daily;
-    
-    private Current current= new Current();
+
+    private Current current = new Current();
+    private Hourly hourly = new Hourly();
 
     public double getLatitude() {
         return latitude;
@@ -120,9 +124,23 @@ public class JsonHandler {
         this.time_daily = time_daily;
     }
 
-    
-    
-    
-    
+    public void setTime(JSONArray array) {
+        hourly.setTime(array);
+    }
 
+    public void setTemperature_2mArray(JSONArray array) {
+        hourly.setTemperature_2m(array);
+    }
+
+    public ArrayList<Integer> getForecast(String date) {
+        return hourly.getForecast(date);
+    }
+
+    public void setCodeForecast(JSONArray array) {
+        hourly.setWeatherCodeForecast(array);
+    }
+    public ArrayList<Integer> getCodeForecast(String date) {
+       return hourly.getCodeForecast(date);
+        
+    }
 }

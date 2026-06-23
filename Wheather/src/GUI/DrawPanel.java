@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package Models;
+package GUI;
 
+import Models.Weather;
 import java.awt.Graphics;
 
 /**
@@ -24,16 +25,15 @@ public class DrawPanel extends javax.swing.JPanel {
     public void setWeather(Weather weather) {
         this.weather = weather;
     }
-    
-    
-    
+
     @Override
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        weather.draw(g);
-        
+        if (this.weather != null) {
+            weather.drawForecast(g);
+        }
+
     }
-            
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,6 +43,8 @@ public class DrawPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        setBackground(new java.awt.Color(0, 204, 204));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

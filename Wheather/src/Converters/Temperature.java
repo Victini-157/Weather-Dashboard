@@ -1,4 +1,4 @@
-package Models;
+package Converters;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,27 +14,23 @@ import java.util.Scanner;
  */
 public class Temperature {
 
-    private double Celcius;
+    private double celcius;
 
 
     public double getCelcius() {
-        return Celcius;
+        return celcius;
     }
 
-    public void setCelcius(double Celcius) {
-        this.Celcius = Celcius;
+    public void setCelcius(double celcius) {
+        this.celcius = celcius;
     }
-
-    
-    
-    
 
     public double getFahrenheit() {
-        return (getCelcius() * 9 / 5) + 32;
+        return (celcius * 9 / 5) + 32;
     }
 
     public double getKelvin() {
-        return getCelcius() + 274.15;
+        return celcius + 274.15;
     }
 
 }

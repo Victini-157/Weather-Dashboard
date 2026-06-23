@@ -13,6 +13,13 @@ import java.awt.Graphics;
  */
 public class Sunny extends Animation {
 
+    private final int RAYON = 15;
+    private final double ANGLE = 7.5;
+
+    public Sunny(int startX, int startY, int endX, int endY) {
+        super(startX, startY, endX, endY);
+    }
+
     @Override
     public void change() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -21,17 +28,20 @@ public class Sunny extends Animation {
     @Override
     public void draw(Graphics g) {
         g.setColor(Color.YELLOW);
-        g.fillOval(200, 200, 15, 15);
+        g.fillOval(startX, startY, RAYON, RAYON);
+
+        double centerX = startX + ANGLE;
+        double centerY = startY + ANGLE;
 
         for (int i = 0; i < 6; i++) {
-            double angle = (i / 6) * 2 * Math.PI;
-            double start_x = 220 + 100 * Math.cos(angle);
-            double start_y = 220 + 100 * Math.sin(angle);
+            double angle = (i / 6.0) * 2 * Math.PI;
+            double start_x = centerX + 10 * Math.cos(angle);
+            double start_y = centerY + 10 * Math.sin(angle);
 
-            double end_x = 220 + 120 * Math.cos(angle);
-            double end_y = 220 + 120 * Math.sin(angle);
-            
-            g.drawLine((int)start_x, (int)start_y, (int)end_x, (int)end_y);
+            double end_x = centerX + 15 * Math.cos(angle);
+            double end_y = centerY + 15 * Math.sin(angle);
+
+            g.drawLine((int) start_x, (int) start_y, (int) end_x, (int) end_y);
         }
 
     }

@@ -4,6 +4,8 @@
  */
 package Models;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Markus
@@ -35,6 +37,8 @@ public class Current {
     public void setTemperature_2m(double temperature_2m) {
         this.temperature_2m = temperature_2m;
     }
+    
+     
     
     
     
