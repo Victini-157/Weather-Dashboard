@@ -4,17 +4,23 @@
  */
 package GUI;
 
+import Models.Weather;
+import java.awt.Graphics;
+
 /**
  *
  * @author Markus
  */
 public class CurrentWeatherJPanel extends javax.swing.JPanel {
-
+    private Weather weather;
     /**
      * Creates new form CurrentWeatherJPanel
      */
     public CurrentWeatherJPanel() {
         initComponents();
+    }
+    public void setWeather(Weather weather) {
+        this.weather = weather;
     }
 
     /**
@@ -37,7 +43,14 @@ public class CurrentWeatherJPanel extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (this.weather != null) {
+            weather.drawCurrent(g);
+        }
 
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

@@ -46,7 +46,10 @@ public class API {
         json.setTime(jo.getJSONObject("hourly").getJSONArray("time"));
         json.setTemperature_2mArray(jo.getJSONObject("hourly").getJSONArray("temperature_2m"));
         json.setCodeForecast(jo.getJSONObject("hourly").getJSONArray("weather_code"));
-        
+        json.setTimezone(jo.getString("timezone"));
+        json.setRelative_Humidity_2m(jo.getJSONObject("current").getInt("relative_humidity_2m"));
+        json.setApparent_Temperature(jo.getJSONObject("current").getDouble("apparent_temperature"));
+        json.setIs_Day(jo.getJSONObject("current").getInt("is_day"));
                 
        
         

@@ -143,4 +143,30 @@ public class JsonHandler {
        return hourly.getCodeForecast(date);
         
     }
+    
+    public void setRelative_Humidity_2m(int relative_humidity_2m ){
+        current.setRelative_humidity_2m(relative_humidity_2m);
+    }
+    
+    public int getRelative_Humidity_2m(){
+        return current.getRelative_humidity_2m();
+    }
+    
+    public void setApparent_Temperature(double apparent_temperature){
+        current.setApparent_temperature(apparent_temperature);
+    }
+    
+    public double getApparent_Temperature(){
+        return current.getApparent_temperature();         
+    }
+    
+    public void setIs_Day(int is_day){
+        current.setIs_day(is_day);
+    }
+    
+    public String getIs_Day() {
+        return current.getIs_day();
+    }
+    
+    
 }

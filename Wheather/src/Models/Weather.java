@@ -6,7 +6,7 @@ package Models;
 
 import Converters.Temperature;
 import Converters.WeatherCodeConverter;
-import GUI.WheatherFrame;
+import GUI.WeatherFrame;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class Weather {
     private Temperature converter = new Temperature();
     private API api = new API();
     private JsonHandler jsonhandler = new JsonHandler();
-    private WheatherFrame.TemperatureUnit mode = WheatherFrame.TemperatureUnit.Celcius;
+    private WeatherFrame.TemperatureUnit mode = WeatherFrame.TemperatureUnit.Celcius;
     private String degrees = "°C";
     private WeatherCodeConverter weatherCodeConverter = new WeatherCodeConverter();
 
@@ -43,7 +43,7 @@ public class Weather {
 
     }
 
-    public void setMode(WheatherFrame.TemperatureUnit mode) {
+    public void setMode(WeatherFrame.TemperatureUnit mode) {
         this.mode = mode;
     }
 
@@ -66,25 +66,48 @@ public class Weather {
         return jsonhandler.getCodeForecast(LocalDate.now().toString());
     }
 
+    public void drawCurrent(Graphics g) {
+        g.setColor(Color.BLACK);
+        g.drawString("Current Weather", 0, 10);
+
+        g.drawString("Temperature: " + String.valueOf((int) jsonhandler.getTemperature_2m()) + degrees, 0, 25);
+
+        g.drawString("Time: " + LocalDateTime.now().toString(), 0, 40);
+
+        g.drawString("Timezone: " + jsonhandler.getTimezone(), 0, 65);
+
+        g.drawString("Humidity: " + String.valueOf(jsonhandler.getRelative_Humidity_2m()) + "%", 0, 80);
+
+        g.drawString("Apparent Temperature: " + String.valueOf((int) jsonhandler.getApparent_Temperature()) + degrees, 0, 100);
+
+        g.drawString(jsonhandler.getIs_Day(), 0, 115);
+
+    }
+
     public void drawGraph(Graphics g) {
         ArrayList<Integer> forecast = getForecast();
+
         g.setColor(Color.BLACK);
-        g.drawLine(30, 240, 750, 240);//X axes
+        g.drawString("Graph:", 0, 30);
+        g.drawLine(30, 240, 720, 240);//X axes
         g.drawLine(30, 240, 30, 80); //y axes
 
         for (int i = 0; i < forecast.size(); i++) {
-            g.drawLine(60 + 30 * i, 245, 60 + 30 * i, 235);
+            if (i < forecast.size() - 1) {
+                g.drawLine(60 + 30 * i, 245, 60 + 30 * i, 235);
+            }
             g.drawString(String.valueOf(i) + ":00", 13 + 31 * i, 257); //X line ticks
 
             if (i < 8) {
                 g.drawLine(25, 220 - 20 * i, 35, 220 - 20 * i);
             }
             if (i < 9) {
-                g.drawString(String.valueOf(5 * i) + "°C", 5, 245 - 20 * i);//Y line ticks
+                g.drawString(String.valueOf(unitConvertere(5) * i) + degrees, 5, 245 - 20 * i);//Y line ticks
             }
-
-            g.drawLine(30 + i * 30, 240 - (int) Math.round(20 * (forecast.get(i) / 5.0)), //start point
-                       30 + (i + 1) * 30, 240 - (int) Math.round(20 * (forecast.get(i + 1) / 5.0))); //end point
+            if (i < forecast.size() - 1) {
+                g.drawLine(30 + i * 30, 240 - (int) Math.round(20 * (unitConvertere(forecast.get(i)) / 5.0)), //start point
+                        30 + (i + 1) * 30, 240 - (int) Math.round(20 * (unitConvertere(forecast.get(i + 1)) / 5.0))); //end point
+            }
         }
     }
 
@@ -103,13 +126,13 @@ public class Weather {
                 Clouds cloudy = new Clouds(13 + i * 45, 35, 0, 0);
                 cloudy.draw(g);
             } else if (weatherCondition.equals("RAINY")) {
-                Rain rainy= new Rain(13 + i * 45, 35, 0, 0);
+                Rain rainy = new Rain(13 + i * 45, 35, 0, 0);
                 rainy.draw(g);
             } else if (weatherCondition.equals("SNOWY")) {
                 Snow snowy = new Snow(13 + i * 45, 35, 0, 0);
                 snowy.draw(g);
-            }else{
-                Thunderstorm thunderstorm= new Thunderstorm(13 + i * 45, 35, 0, 0);
+            } else {
+                Thunderstorm thunderstorm = new Thunderstorm(13 + i * 45, 35, 0, 0);
                 thunderstorm.draw(g);
             }
         }
